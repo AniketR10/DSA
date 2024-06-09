@@ -1,0 +1,7 @@
+ select a source
+ put all the neighbours in a prority queue bcoz we want to evaluate the node with minimum edge
+ make a table containing the parent, minimum edge distance and the curr node
+ put the src in the pq and take it out and then put its neighbours in the pq one by one then take out the the topmost <edgewt, ele> or the neighbour with the least edge wt 
+ in the table in front of the ele(present in the curr node) if the present wt in the table is inf or greater than the edgewt then
+ replace the wt with the edgewt and make a visited set and push the ele in the visited set 
+ nowinsert the neighbour of theat cuee ele in the pq and repeat this process
