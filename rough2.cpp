@@ -1,83 +1,76 @@
 #include<bits/stdc++.h>
 
+    #define pp pair<int,int>
+    #define ll long long int
+
 using namespace std;
-   
-    void print(int arr[],int n){
-        for(int i=0;i<n;i++){
-            cout<<arr[i]<<" ";
+
+vector<list<pp>> graph;
+
+void f(int curr, int end, int wt){
+    graph[curr].push_back({wt,end});
+    graph[end].push_back({wt,curr});
+}
+
+    ll prims(int src, vector<int> & parent, int v){
+       priority_queue<pp, vector<pp>, greater<pp> > pq; //<wt,parent>
+       unordered_map<int,int> mp;
+       unordered_set<int>visited;
+       for(int i=1;i<=v;i++){
+        mp[i]=INT_MAX;
+       }
+       mp[src]=0; // as it is the src
+       pq.push({0,src});
+
+       int edge_count=0;// max 0-> v tk jaa skti hai
+        int ans=0;
+        while(edge_count<v && !pq.empty()){
+            auto curr =pq.top();
+            if(visited.count(curr.second)){
+                pq.pop();
+                continue;
+            }
+            visited.insert(curr.second);
+            edge_count++;
+            ans+= curr.first;
+            pq.pop();
+            for(auto neighbour : graph[curr.second]){
+                if(!visited.count(neighbour.second) and mp[neighbour.second] > neighbour.first){
+                    pq.push({neighbour.first,neighbour.second});
+                    parent[neighbour.second] = curr.second;
+                    mp[neighbour.second] = neighbour.first;
+
+                }
+            }
+
+
         }
+        return ans;
+
+
+
     }
-    void heapify(int arr[], int n, int i){
-         while(i<n){
 
-        if(2*i>n) break;
-
-        if(2*i+1>n){
-            if(arr[i]>arr[2*i]){
-                swap(arr[i],arr[2*i]);
-                i= 2*i;
-            }
-            break;
-        }
-            
-                // if(arr[2*i]>arr[2*i+1]){
-                //     if(arr[i]>arr[2*i+1]){
-                //         swap(arr[i],arr[2*i+1]);
-                //         i = 2*i+1;
-                //         break;
-                //     }
-                //   else break;
-                // }
-                // else{
-                //     if(arr[i]>arr[2*i]){
-                //         swap(arr[i],arr[2*i]);
-                //         i =2*i;
-                //         break;
-                //     }
-                //     else break;
-                // }
-                if(arr[i]>arr[2*i]){
-                    if(arr[2*i]<arr[2*i+1]){
-                        swap(arr[i],arr[2*i]);
-                        i = 2*i;
-                        break;
-                    }
-                    else{
-                        swap(arr[i],arr[2*i+1]);
-                        i = 2*i+1;
-                        break;
-                    }
-                }
-                
-                 else{
-                    if(arr[i]>arr[2*i+1]){
-                        swap(arr[i],arr[2*i+1]);
-                        i = 2*i+1;
-                        break;
-                    }
-                    else break;
-
-                 }  
-
-                }
-            }
-        
-         
-    
 int main(){
+    int v,e;
+    cin>>v>>e;
 
-   // int arr[]={1,4,5,2,9,3,7};
-     int arr[]={-1,10,2,14,11,1,4};
-        int n =sizeof(arr)/sizeof(arr[0]);
-        print(arr,n);
-        for(int i=n/2;i>=1;i--){
+    graph.resize(v+1,list<pp>());
+    vector<int>parent(v+1);
 
-            heapify(arr, n,i);
+    while(e--){
+        int curr,end,wt;
+        cin>>curr>>end>>wt;
+        f(curr,end,wt);
 
-        }
-        cout<<"\n";
-        print(arr,n);
-        
+    }
+    int src;
+    cin>>src;
+    cout<<prims(src, parent, v)<<"\n";
 
-
+    
+    for(int i=1;i<parent.size();i++){
+        cout<<parent[i]<<" ";
+    }
+    
 }
