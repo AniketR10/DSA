@@ -5,7 +5,6 @@ int main(){
     printf("enter the no");
     scanf("%d",&n);
     int count=0; 
-    
     int no=n;
     while(no!=0){
         no=no/10;
@@ -22,4 +21,5 @@ int main(){
     }
     else printf("the no  is not");
     return 0;
+    // this is all about the code
 }
