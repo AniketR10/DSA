@@ -4,7 +4,8 @@ int main(){
     int n;
     printf("enter the no");
     scanf("%d",&n);
-    int count=0; int no=n;
+    int count=0; 
+    int no=n;
     while(no!=0){
         no=no/10;
         count++;
