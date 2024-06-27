@@ -21,9 +21,9 @@ int v;
                 bool ans =dfs(neighbour,visited,node);
                 if(ans == true) return true;
                
-                dfs(neighbour,visited, node);
             }
         }
+        return false;
     }
 
     bool in_cycle(){
@@ -52,8 +52,8 @@ int main(){
         f(curr,dest);
     }
    
-  in_cycle();
   if(in_cycle() == true) cout<<"Cycle detected ";
+  else cout<<"No cycle detected";
 
     
 }
