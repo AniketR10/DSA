@@ -1,8 +1,8 @@
 #include<iostream>
 using namespace std;
 int main(){
-    string s="abdc";
-    string t="aydc";
+    string s="aadc";
+    string t="abdcz";
     cout<<s.compare(t);
 
 }
